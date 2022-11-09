@@ -14,6 +14,7 @@
       placeholder="Rechercher une tâche..."
       name="search"
       class="appearance-none block w-full bg-slate-100 text-slate-700 border border-slate-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-400"
+      value="<?php echo $search?>"
     />
   </label>
   
@@ -25,13 +26,13 @@
         <option disabled>
           Sélectionner une option
         </option>
-        <option value="title">
+        <option value="title" <?php if($orderBy=="title"):?> selected <?php endif;?>>
           Titre
         </option>
-        <option value="createdAt">
+        <option value="createdAt" <?php if($orderBy=="createdAt"):?> selected <?php endif;?>>
           Date D'ajout
         </option>
-        <option value="completedAt">
+        <option value="completedAt" <?php if($orderBy=="completedAt"):?> selected <?php endif;?>>
           Date de complétion
         </option>
       </select>
@@ -46,7 +47,7 @@
   <!-- Show completed-->
   <div class="pt-2">
     <label class="inline-flex relative items-center cursor-pointer">
-      <input type="checkbox" name="only-show-completed" class="sr-only peer">
+      <input type="checkbox" name="only-show-completed" class="sr-only peer" <?php if($hideCompleted!=null):?> checked <?php endif;?>>
       <span class="w-11 h-6 bg-slate-100 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-teal-400"></span>
       <span class="ml-3 text-sm font-medium text-slate-400 select-none cursor pointer">Masquer les tâches complétées</span>
     </label>

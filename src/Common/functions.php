@@ -9,7 +9,8 @@
  * @return string
  */
 function get_template( string $templatePath, array $args ) : string {
-  extract( $args );
+    extract( $args );
+
   
   ob_start();
   require $templatePath;
