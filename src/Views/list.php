@@ -8,10 +8,11 @@ echo get_header( [ 'title' => 'Accueil' ] );
   <div class="container mx-auto flex flex-row items-stretch space-x-8">
     <!-- Filters -->
     <aside class="block w-1/4 mt-[7.1rem]">
-      <?= get_template( __PROJECT_ROOT__ . "/Views/fragments/filter-form.php", [
-        "search"=>$_GET['search'] ?? "",
-          "orderBy"=>$_GET['order-by'] ?? null,
-          "hideCompleted"=>$_GET['only-show-completed'] ?? null
+      <?=
+      get_template( __PROJECT_ROOT__ . "/Views/fragments/filter-form.php", [
+        "search"=> $_GET['search'] ?? "",
+          "orderBy"=> $_GET['order-by'] ?? null,
+          "hideCompleted"=> $_GET['only-show-completed'] ?? null
       ] ); ?>
     </aside>
     <!-- /Filters -->
@@ -49,13 +50,16 @@ echo get_header( [ 'title' => 'Accueil' ] );
           
           <!-- Pagination -->
           <div class="flex-1 flex flex-row justify-end space-x-4 my-8">
-            <a class="block bg-slate-50 hover:bg-slate-200 rounded p-4 text-sm cursor-pointer transition-colors duration-300">
+              <?php
+              $request = array("search"=> $_GET['search'] ?? "", "orderBy"=> $_GET['order-by'] ?? null, "hideCompleted"=> $_GET['only-show-completed'] ?? null)
+              ?>
+            <a class="block bg-slate-50 hover:bg-slate-200 rounded p-4 text-sm cursor-pointer transition-colors duration-300" href="http://localhost/?page=1<?php echo "&" . http_build_query($request,'',"&");?>">
               1
             </a>
-            <a class="block bg-slate-50 hover:bg-slate-200 rounded p-4 text-sm cursor-pointer transition-colors duration-300">
+            <a class="block bg-slate-50 hover:bg-slate-200 rounded p-4 text-sm cursor-pointer transition-colors duration-300" href="http://localhost/?page=2<?php echo "&" . http_build_query($request,'',"&");?>">
               2
             </a>
-            <a class="block bg-slate-50 hover:bg-slate-200 rounded p-4 text-sm cursor-pointer transition-colors duration-300">
+            <a class="block bg-slate-50 hover:bg-slate-200 rounded p-4 text-sm cursor-pointer transition-colors duration-300" href="http://localhost/?page=3<?php echo "&" . http_build_query($request,'',"&");?>">
               3
             </a>
           </div>
