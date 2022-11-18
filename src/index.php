@@ -8,7 +8,7 @@ require_once __PROJECT_ROOT__ . "/Common/functions.php";
 require_once __PROJECT_ROOT__ . "/Entities/TaskEntity.php";
 
 require_once __PROJECT_ROOT__ . "/Services/TaskServiceInterface.php";
-require_once __PROJECT_ROOT__ . "/Services/MemoryTaskService.php";
+require_once __PROJECT_ROOT__ . "/Services/DatabaseTaskService.php";
 
 require_once __PROJECT_ROOT__ . "/Controllers/AbstractController.php";
 require_once __PROJECT_ROOT__ . "/Controllers/TaskSingleController.php";
@@ -22,7 +22,7 @@ switch ($uri[1]) :
   // List/Home view
   case "":
   case "home":
-    (new TaskListController( MemoryTaskService::getInstance() ))->render();
+    (new TaskListController( DatabaseTaskService::getInstance() ))->render();
     break;
     
   // Create/Edit/Delete view
@@ -31,7 +31,7 @@ switch ($uri[1]) :
     $task_id = isset($uri[2])
       ? intval($uri[2])
       : null;
-    (new TaskSingleController( MemoryTaskService::getInstance(), $task_id ))->render();
+    (new TaskSingleController( DatabaseTaskService::getInstance(), $task_id ))->render();
     break;
   
   // Default 404

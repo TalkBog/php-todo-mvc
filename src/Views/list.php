@@ -51,7 +51,7 @@ echo get_header( [ 'title' => 'Accueil' ] );
           <!-- Pagination -->
           <div class="flex-1 flex flex-row justify-end space-x-4 my-8">
               <?php
-              $request = array("search"=> $_GET['search'] ?? "", "orderBy"=> $_GET['order-by'] ?? null, "hideCompleted"=> $_GET['only-show-completed'] ?? null)
+              $request = array("search"=> $_GET['search'] ?? "", "order-by"=> $_GET['order-by'] ?? null, "hideCompleted"=> $_GET['only-show-completed'] ?? null)
               ?>
             <a class="block bg-slate-50 hover:bg-slate-200 rounded p-4 text-sm cursor-pointer transition-colors duration-300" href="http://localhost/?page=1<?php echo "&" . http_build_query($request,'',"&");?>">
               1
