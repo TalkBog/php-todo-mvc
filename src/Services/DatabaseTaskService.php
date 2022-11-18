@@ -122,8 +122,15 @@ class DatabaseTaskService implements TaskServiceInterface
     public function update(TaskEntity $task): TaskEntity
     {
         $this->data[ $task->getId() ] = $task;
-        $sentence = $this->database->get()->prepare("UPDATE tache SET title=:title, description=:description, completed=:completed, completedAt=>:completedAt WHERE id=:id;");
-        $sentence ->execute(['id'=>$task->getId(), "title"=>$task->getTitle(), "description"=>$task->getDescription(), "completed"=> $task->isCompleted()? 1 : 0, "completedAt" => $task->getCompletedAt()]);
+        if($task->isCompleted() && $task->getCompletedAt()!=null){
+            $sentence = $this->database->get()->prepare("UPDATE tache SET title=:title, description=:description, completed=:completed, completedAt=>:completedAt WHERE id=:id;");
+            $sentence ->execute(['id'=>$task->getId(), "title"=>$task->getTitle(), "description"=>$task->getDescription(), "completed"=> $task->isCompleted()? 1 : 0, "completedAt" => $task->getCompletedAt()]);
+        }
+        else{
+            $sentence = $this->database->get()->prepare("UPDATE tache SET title=:title, description=:description, completed=:completed WHERE id=:id;");
+            $sentence ->execute(['id'=>$task->getId(), "title"=>$task->getTitle(), "description"=>$task->getDescription(), "completed"=> $task->isCompleted()? 1 : 0]);
+        }
+
         return $task;
     }
 

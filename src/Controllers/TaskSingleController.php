@@ -31,10 +31,21 @@ class TaskSingleController extends AbstractController {
 
   public function submit_form() : void{
       $this->task->setTitle($_POST['name'])
-          ->setDescription($_POST['content'])
-          ->setCompleted((bool)$_POST['completed']);
-      $this->taskService->update($this->task);
-      header("location:localhost");
+          ->setDescription($_POST['content']);
+      if (isset($_POST['completed'])){
+          $this->task->setCompleted($_POST['completed']);
+      }
+      else{
+          $this->task->setCompleted(false);
+      }
+      if($this->edit){
+          $this->taskService->update($this->task);
+      }
+      else{
+          $this->taskService->create($this->task);
+      }
+
+      header("location:http://localhost");
   }
   
 
