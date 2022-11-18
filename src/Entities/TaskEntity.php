@@ -4,7 +4,7 @@ class TaskEntity {
     private int $id;
     private string $title;
     private string $description;
-    private string $completed;
+    private bool $completed;
     private string $createdAt;
     private string $updatedAt;
     private string $completedAt;
@@ -66,7 +66,7 @@ class TaskEntity {
     /**
      * @return string
      */
-    public function isCompleted(): string
+    public function isCompleted(): bool
     {
         return $this->completed;
     }

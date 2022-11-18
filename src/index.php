@@ -6,6 +6,7 @@ require_once __PROJECT_ROOT__ . "/Common/SingletonTrait.php";
 require_once __PROJECT_ROOT__ . "/Common/functions.php";
 
 require_once __PROJECT_ROOT__ . "/Entities/TaskEntity.php";
+require_once __PROJECT_ROOT__ . "/Entities/Database.php";
 
 require_once __PROJECT_ROOT__ . "/Services/TaskServiceInterface.php";
 require_once __PROJECT_ROOT__ . "/Services/DatabaseTaskService.php";

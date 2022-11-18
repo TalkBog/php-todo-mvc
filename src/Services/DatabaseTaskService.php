@@ -8,9 +8,10 @@ class DatabaseTaskService implements TaskServiceInterface
      * @var TaskEntity[]
      */
     private array $data;
-    private PDO $database;
+    private Database $database;
 
     protected function __construct() {
+        $this->database = Database::getInstance();
         $this->init();
     }
 
@@ -21,14 +22,7 @@ class DatabaseTaskService implements TaskServiceInterface
      * @return void
      */
     private function init() : void {
-        try {
-            $this->database = new PDO(
-                sprintf('mysql:host=%s;dbname=%s;port=%s', 'db_todo_pdo_server', 'todo', 3306),"root","root");
-            $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(Exception $exception) {
-            die('Erreur : '.$exception->getMessage());
-        }
-        $sentence = $this->database -> prepare("SELECT * FROM tache;");
+        $sentence = $this->database->get()-> prepare("SELECT * FROM tache;");
         $sentence -> execute();
         $taches = $sentence->fetchAll();
         $this->data = [];
@@ -119,7 +113,7 @@ class DatabaseTaskService implements TaskServiceInterface
         $task->setId($lastId);
         $task->setCreatedAt( date("Y-m-d H:i:s") );
 
-        $sentence = $this->database->prepare("INSERT INTO tache (title,description,completed) VALUES (:title,:description,:completed);");
+        $sentence = $this->database->get()->prepare("INSERT INTO tache (title,description,completed) VALUES (:title,:description,:completed);");
         $sentence -> execute(["title"=>$task->getTitle(), "description"=>$task->getDescription(), "completed"=> $task->isCompleted()? 1 : 0]);
 
         return $task;
@@ -128,7 +122,7 @@ class DatabaseTaskService implements TaskServiceInterface
     public function update(TaskEntity $task): TaskEntity
     {
         $this->data[ $task->getId() ] = $task;
-        $sentence = $this->database->prepare("UPDATE tache SET title=:title, description=:description, completed=:completed, completedAt=>:completedAt WHERE id=:id;");
+        $sentence = $this->database->get()->prepare("UPDATE tache SET title=:title, description=:description, completed=:completed, completedAt=>:completedAt WHERE id=:id;");
         $sentence ->execute(['id'=>$task->getId(), "title"=>$task->getTitle(), "description"=>$task->getDescription(), "completed"=> $task->isCompleted()? 1 : 0, "completedAt" => $task->getCompletedAt()]);
         return $task;
     }
@@ -136,7 +130,7 @@ class DatabaseTaskService implements TaskServiceInterface
     public function delete(int $id): void
     {
         unset( $this->data[ $id ] );
-        $sentence = $this->database->prepare("DELETE tache WHERE id=:id;");
+        $sentence = $this->database->get()->prepare("DELETE tache WHERE id=:id;");
         $sentence->execute(["id"=>$id]);
     }
 }

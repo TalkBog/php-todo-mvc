@@ -12,6 +12,7 @@
             name="task-1"
             type="checkbox"
             class="w-4 h-4 text-slate-600 bg-slate-100 rounded-xl border-2 border-slate-300 cursor-pointer accent-teal-400"
+            <?php echo $task->isCompleted()? "checked" : null?>
         />
     </div>
 

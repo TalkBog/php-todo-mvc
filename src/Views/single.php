@@ -24,19 +24,20 @@ echo get_header( [ 'title' => $task->getTitle() ] );
         placeholder="Nom..."
         name="name"
         class="appearance-none block w-full bg-slate-100 text-slate-700 border border-slate-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-400"
+        value="<?php echo $editing? $task->getTitle(): null?>"
       />
     </label>
     
     <!-- Content -->
     <label class="select-none">
       <span class="text-xs uppercase text-slate-400 font-bold">Description</span>
-      <textarea name="content" placeholder="Contenu..." class="appearance-none block w-full bg-slate-100 text-slate-700 border border-slate-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-400 min-h-[200px]"></textarea>
+      <textarea name="content" placeholder="Contenu..." class="appearance-none block w-full bg-slate-100 text-slate-700 border border-slate-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-400 min-h-[200px]"><?php echo $editing? $task->getDescription(): ""?></textarea>
     </label>
     
     <!-- completed -->
     <div class="pt-2">
       <label class="inline-flex relative items-center cursor-pointer">
-        <input type="checkbox" name="completed" class="sr-only peer">
+        <input type="checkbox" name="completed" class="sr-only peer" <?php if($editing && $task->isCompleted()){echo "checked";}?>>
         <span class="w-11 h-6 bg-slate-100 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-teal-400"></span>
         <span class="ml-3 text-sm font-medium text-slate-400 select-none cursor pointer">Terminée</span>
       </label>
